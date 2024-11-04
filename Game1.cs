@@ -7,12 +7,20 @@ namespace BrickBreaker;
 
 public class Game1 : Game
 {
+    public const int RESOLUTION_WIDTH = 800;
+    public const int RESOLUTION_HEIGHT = 600;
     private GraphicsDeviceManager _graphics;
     private SpriteBatch _spriteBatch;
+
+
+    public static Texture2D paddleSprite;
 
     public Game1()
     {
         _graphics = new GraphicsDeviceManager(this);
+        _graphics.PreferredBackBufferWidth = RESOLUTION_WIDTH;
+        _graphics.PreferredBackBufferHeight = RESOLUTION_HEIGHT;
+        _graphics.ApplyChanges();
         Content.RootDirectory = "Content";
         IsMouseVisible = true;
     }
@@ -28,7 +36,7 @@ public class Game1 : Game
     {
         _spriteBatch = new SpriteBatch(GraphicsDevice);
 
-
+        paddleSprite = LoadSprite("Assets/paddleRed");
         MainScene.Init();
         // TODO: use this.Content to load your game content here
     }
@@ -53,5 +61,10 @@ public class Game1 : Game
         MainScene.Draw(_spriteBatch);
         _spriteBatch.End();
         base.Draw(gameTime);
+    }
+
+    private Texture2D LoadSprite(string Path)
+    {
+        return Content.Load<Texture2D>(Path);
     }
 }
