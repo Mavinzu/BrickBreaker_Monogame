@@ -12,7 +12,7 @@ public static class MainScene
     public static Paddle player;
     public static Ball ball;
 
-    private static List<Element> elements;
+    public static List<Element> elements;
 
     private static Random spriteElement;
     public static void Init()
