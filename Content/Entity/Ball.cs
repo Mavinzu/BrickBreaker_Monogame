@@ -1,3 +1,4 @@
+using BrickBreaker;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Scene;
@@ -32,6 +33,7 @@ public class Ball
 
     public void Update(GameTime gameTime)
     {
+        KeepInScreen();
         CheckElementCollider();
         CheckPaddleCollider();
         position += direction * movementSpeed;
@@ -52,7 +54,6 @@ public class Ball
             {
                 direction = boxCollider2D.X + sprite.Width / 2 < MainScene.elements[i].GetCollider.X + MainScene.elements[i].GetCollider.Width / 2 ? new Vector2( -1, 1) : new Vector2( 1, 1);
                 MainScene.elements.RemoveAt(i);
-                movementSpeed++;
             }
         }
     }
@@ -62,7 +63,18 @@ public class Ball
         if(boxCollider2D.Intersects(MainScene.player.GetCollider))
         {
             direction = boxCollider2D.X + sprite.Width / 2 < MainScene.player.GetCollider.X + MainScene.player.GetCollider.Width / 2 ? new Vector2( -1, -1) : new Vector2( 1, -1);
-            movementSpeed++;
+        }
+    }
+
+    private void KeepInScreen()
+    {
+        if(position.X < 0)
+        {
+            direction.X = 1;
+        }
+        else if(position.X + sprite.Width > Game1.RESOLUTION_WIDTH)
+        {
+            direction.X = -1;
         }
     }
 }
