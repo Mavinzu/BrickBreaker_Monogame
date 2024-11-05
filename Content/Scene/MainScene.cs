@@ -1,3 +1,5 @@
+using System;
+using System.Collections.Generic;
 using BrickBreaker;
 using Entity;
 using Microsoft.Xna.Framework;
@@ -7,8 +9,34 @@ namespace Scene;
 
 public static class MainScene
 {
-    static Paddle player;
+    public static Paddle player;
+    public static Ball ball;
+
+    private static List<Element> elements;
+
+    private static Random spriteElement;
     public static void Init()
+    {
+        SetupPlayer();
+        SetupBall();
+        SetupElement();
+    }
+    public static void Update(GameTime gameTime)
+    {
+        player.Update(gameTime);
+        ball.Update(gameTime);
+    }
+    public static void Draw(SpriteBatch spriteBatch)
+    {
+        player.Draw(spriteBatch);
+        ball.Draw(spriteBatch);
+        foreach(Element element in elements)
+        {
+            element.Draw(spriteBatch);
+        }
+    }
+
+    private static void SetupPlayer()
     {
         player = new Paddle(
             Game1.paddleSprite,
@@ -19,12 +47,40 @@ public static class MainScene
                 Game1.paddleSprite.Height
             ));
     }
-    public static void Update(GameTime gameTime)
+    private static void SetupBall()
     {
-        player.Update(gameTime);
+        ball = new Ball(
+            Game1.ballSprite,
+            new Rectangle(
+                Game1.RESOLUTION_WIDTH / 2,
+                Game1.RESOLUTION_HEIGHT - 100,
+                Game1.ballSprite.Width,
+                Game1.ballSprite.Height
+            ));
     }
-    public static void Draw(SpriteBatch spriteBatch)
+
+    private static void SetupElement()
     {
-        player.Draw(spriteBatch);
+        elements = new List<Element>();
+        spriteElement = new Random();
+        int xRowElement = 12;
+        int xRowOffset = 16;
+        
+        for(int yRow = 0; yRow < 6; yRow++)
+        {
+            int spriteIndex = spriteElement.Next(0, 6);
+            for(int xRow = 0; xRow < xRowElement; xRow++)
+            {
+                elements.Add(
+                    new Element(
+                    Game1.elementSprite[spriteIndex],
+                    new Rectangle(
+                        xRow * Game1.elementSprite[0].Width + xRowOffset,
+                        yRow * Game1.elementSprite[0].Height,
+                        Game1.elementSprite[0].Width,
+                        Game1.elementSprite[0].Height))
+                );
+            }
+        }
     }
 }

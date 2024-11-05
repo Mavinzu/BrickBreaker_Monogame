@@ -14,6 +14,9 @@ public class Game1 : Game
 
 
     public static Texture2D paddleSprite;
+    public static Texture2D ballSprite;
+
+    public static Texture2D[] elementSprite = new Texture2D[6];
 
     public Game1()
     {
@@ -37,6 +40,13 @@ public class Game1 : Game
         _spriteBatch = new SpriteBatch(GraphicsDevice);
 
         paddleSprite = LoadSprite("Assets/paddleRed");
+        ballSprite = LoadSprite("Assets/ballGrey");
+        elementSprite[0] = LoadSprite("Assets/element_blue_rectangle_glossy");
+        elementSprite[1] = LoadSprite("Assets/element_green_rectangle_glossy");
+        elementSprite[2] = LoadSprite("Assets/element_grey_rectangle_glossy");
+        elementSprite[3] = LoadSprite("Assets/element_purple_rectangle_glossy");
+        elementSprite[4] = LoadSprite("Assets/element_red_rectangle_glossy");
+        elementSprite[5] = LoadSprite("Assets/element_yellow_rectangle_glossy");
         MainScene.Init();
         // TODO: use this.Content to load your game content here
     }
@@ -54,7 +64,7 @@ public class Game1 : Game
 
     protected override void Draw(GameTime gameTime)
     {
-        GraphicsDevice.Clear(Color.CornflowerBlue);
+        GraphicsDevice.Clear(Color.Black);
 
         // TODO: Add your drawing code here
         _spriteBatch.Begin();

@@ -3,7 +3,7 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace Entity;
 
-public class Paddle
+public class Element
 {
     Texture2D sprite;
     Vector2 position;
@@ -17,7 +17,7 @@ public class Paddle
             boxCollider2D = value;
         }
     }
-    public Paddle(Texture2D Sprite, Rectangle Position)
+    public Element(Texture2D Sprite, Rectangle Position)
     {
         sprite = Sprite;
         position = new Vector2(Position.X, Position.Y);
@@ -26,7 +26,7 @@ public class Paddle
 
     public void Update(GameTime gameTime)
     {
-        boxCollider2D.Location = new Point((int)position.X, (int)position.Y);
+        
     }
     public void Draw(SpriteBatch spriteBatch)
     {

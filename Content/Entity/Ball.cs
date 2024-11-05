@@ -1,31 +1,25 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Scene;
 
 namespace Entity;
 
-public class Paddle
+public class Ball
 {
     Texture2D sprite;
-    Vector2 position;
+    Vector2 position, direction;
     Rectangle boxCollider2D;
-
-    public Rectangle GetCollider{
-        get{
-            return boxCollider2D;
-        }
-        private set{
-            boxCollider2D = value;
-        }
-    }
-    public Paddle(Texture2D Sprite, Rectangle Position)
+    public Ball(Texture2D Sprite, Rectangle Position)
     {
         sprite = Sprite;
         position = new Vector2(Position.X, Position.Y);
         boxCollider2D = Position;
+        direction = new Vector2(0, -1);
     }
 
     public void Update(GameTime gameTime)
     {
+        // position += direction * 2;
         boxCollider2D.Location = new Point((int)position.X, (int)position.Y);
     }
     public void Draw(SpriteBatch spriteBatch)
